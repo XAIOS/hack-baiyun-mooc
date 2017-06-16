@@ -1,0 +1,14 @@
+{
+  "name": "hack_baiyun_mooc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AIOS",
+  "license": "ISC",
+  "dependencies": {
+    "superagent": "^3.5.2"
+  }
+}
