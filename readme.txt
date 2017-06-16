@@ -2,7 +2,7 @@ nodejs目录下为nodejs端可直接运行的hack程序源文件
 
 Web目录下为可配置为Web端hack程序的源文件
 
-Web目录中，express为nodejs主路由配置文件
+Web目录中，express目录为nodejs主路由配置目录
 
 Web目录中，router为hack程序路由源文件
 
