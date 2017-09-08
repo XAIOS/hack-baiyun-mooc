@@ -29,65 +29,61 @@
   <button type=submit id=message>Hack 开始</button>
   <h2>说明</h2>
   <ol>
-    <li>1. 白云在线初始密码为123456</li>
-    <li>2. 输入学号后直接开始，按初始密码处理</li>
-    <li>3. 本程序仅可使所有视频标记为已看完</li>
-    <li>4. 本程序造成的不良后果，作者概不负责</li>
-    <li>5. 不愿意妥协垃圾浏览器，拒绝兼容它们</li>
-    <li>6. 如果没反应，请用最新Chrome浏览器</li>
-    <li>7. 如果老提示失败，重新来或者反馈作者</li>
-    <li>8. 如想答谢作者，可去GitHub给个Star</li>
+    <li>1. 输入学号后直接开始，密码按123456处理</li>
+    <li>2. 本程序仅可使所有视频标记为已看完</li>
+    <li>3. 本程序造成的不良后果，作者概不负责</li>
+    <li>4. 不愿意妥协垃圾浏览器，拒绝兼容它们</li>
+    <li>5. 如果没反应，请用最新Chrome浏览器</li>
+    <li>6. 如果没效果，请刷新重来或反馈作者</li>
+    <li>7. 如想答谢作者，可去GitHub给个Star</li>
   </ol>
   <br>
-  <a href='https://github.com/xaios/hack-baiyun-mooc' target=blank>点我前往 GitHub</a>
+  <a href='https://github.com/xaios/hack-baiyun-mooc' target=_blank>点我前往 GitHub</a>
 </form>
 
 <script>
-  var $ = i => document.getElementById(i)
-  var username = $('username')
-  var message = $('message')
-
-  function Post(data,callback){
+  const $ = i => document.getElementById(i)
+  const username = $('username')
+  const password = $('password')
+  const message = $('message')
+  
+  function Post(params,callback){
     var xhr = new XMLHttpRequest()
 
-    xhr.onload = () => {
-      callback( xhr.status == 200 ? xhr.responseText : 'error' )
-    }
-
-    xhr.onerror = () => {
-      callback('error')
-    }
-
-    var send_data = ''
-    for(var key in data)
-      send_data += `${key}=${data[key]}&`
+    xhr.onload = callback
+    
+    var data = ''
+    for(var key in params)
+      data += `${key}=${params[key]}&`
 
     xhr.open('post','/hack/start')
     xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
-    xhr.send(send_data)
+    xhr.send(data)
   }
 
-  $('core').onsubmit = event => {
-    event.preventDefault()
+  $('core').onsubmit = e => {
+    e.preventDefault()
 
+    if(!username.value) return
+    
     var info = {
       loginKey: 'userName,user_code',
-      username: $('username').value,
-      password: $('password').value || 123456
+      username: username.value,
+      password: password.value || 123456
     }
 
     username.disabled = true
     message.type = 'button'
     message.innerHTML = 'Hacking'
 
-    Post(info,data => {
+    Post(info,() => {
       username.disabled = false
       message.type = 'submit'
-      message.innerHTML = data == 'error' ? 'Hack 失败' : 'Hack 成功'
+      message.innerHTML = 'Hack 结束'
     })
   }
 
-  username.oninput = event => {
+  username.oninput = () => {
     message.innerHTML = 'Hack 开始'
   }
 </script>
